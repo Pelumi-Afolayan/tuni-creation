@@ -27,6 +27,58 @@ function CartDrawer({
     }).format(amount)
   }
 
+  function getQuantityDescription(item) {
+  // Adire sets containing five yards.
+  if (
+    item.unit === 'set' &&
+    item.setSize === '5 yards'
+  ) {
+    const totalYards =
+      item.quantity * 5
+
+    return `${item.quantity} ${
+      item.quantity === 1
+        ? 'set'
+        : 'sets'
+    } • ${totalYards} yards total`
+  }
+
+  // Brocade has a different set size,
+  // so we display the size of each complete set.
+  if (
+    item.unit === 'set' &&
+    item.setSize ===
+      '4 yards, 20 inches'
+  ) {
+    return `${item.quantity} ${
+      item.quantity === 1
+        ? 'set'
+        : 'sets'
+    } • ${item.setSize} per set`
+  }
+
+  // T-shirts and scarves are sold per piece.
+  if (item.unit === 'piece') {
+    return `${item.quantity} ${
+      item.quantity === 1
+        ? 'piece'
+        : 'pieces'
+    }`
+  }
+
+  // Aso Oke bundles are sold per bundle.
+  if (item.unit === 'bundle') {
+    return `${item.quantity} ${
+      item.quantity === 1
+        ? 'bundle'
+        : 'bundles'
+    }`
+  }
+
+  // Default wording for complete sets.
+  return `Quantity: ${item.quantity}`
+}
+
   return (
     <div
       className="cart-overlay"
@@ -85,6 +137,18 @@ function CartDrawer({
                 <h3>{item.name}</h3>
 
                 <p>{formatPrice(item.price)} each</p>
+                <p className="cart-quantity-description">
+                  {getQuantityDescription(item)}
+                </p>
+                {/* Display any optional extras selected by the customer. */}
+                {item.selectedAddOns?.map((addOn) => (
+                  <p
+                    className="cart-item-addon"
+                    key={addOn.id}
+                  >
+                    + {addOn.name}
+                  </p>
+                ))}
 
                 <div className="cart-item-actions">
                     <div className="quantity-controls">

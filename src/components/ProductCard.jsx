@@ -1,28 +1,75 @@
-function ProductCard({ 
-    product, 
-    onAddToCart,
-    isAdded }) {
+import { useState } from 'react'
+
+function ProductCard({
+  product,
+  onAddToCart,
+  isAdded,
+}) {
+  // Stores the selected optional add-on.
+  const [selectedAddOnId, setSelectedAddOnId] =
+    useState(null)
+
+  // Find the full information for the selected add-on.
+  const selectedAddOn = product.addOns.find(
+    (addOn) =>
+      addOn.id === selectedAddOnId,
+  )
+
+  // Add the optional extra to the normal product price.
+  const finalPrice =
+    product.price +
+    (selectedAddOn?.price ?? 0)
+
   // Convert a number such as 250000 into ₦250,000.
-  const formattedPrice = new Intl.NumberFormat('en-NG', {
-    style: 'currency',
-    currency: 'NGN',
-    maximumFractionDigits: 0,
-  }).format(product.price)
+  function formatPrice(amount) {
+    return new Intl.NumberFormat('en-NG', {
+      style: 'currency',
+      currency: 'NGN',
+      maximumFractionDigits: 0,
+    }).format(amount)
+  }
+
+  function handleAddProduct() {
+    // Create a different cart ID when the customer
+    // selects an optional extra.
+    //
+    // This allows the normal set and the set with
+    // Sokoto and Dansiki to exist separately.
+    const cartProduct = {
+      ...product,
+
+      id: selectedAddOn
+        ? `${product.id}-${selectedAddOn.id}`
+        : product.id,
+
+      // Keep the original product ID for feedback.
+      baseProductId: product.id,
+
+      // Save the final price, including the add-on.
+      price: finalPrice,
+
+      // Save the selected add-on in the cart.
+      selectedAddOns: selectedAddOn
+        ? [selectedAddOn]
+        : [],
+    }
+
+    onAddToCart(cartProduct)
+  }
 
   return (
     <article className="product-card">
-      {/* 
-        Temporary image area.
-        A real product photograph will replace this later.
-      */}
+      {/* Temporary image until real product photos are added. */}
       <div className="product-image-placeholder">
         <span>{product.name.charAt(0)}</span>
       </div>
 
       <div className="product-content">
-        {/* Shows whether this is a bundle or complete set. */}
         <p className="product-type">
-          {product.collection.replace('-', ' ')}
+          {product.collection.replace(
+            '-',
+            ' ',
+          )}
         </p>
 
         <h3>{product.name}</h3>
@@ -31,48 +78,86 @@ function ProductCard({
           {product.description}
         </p>
 
-        {/* 
-          Not every product has bride and groom items.
-          This section only appears when product.includes exists.
-        */}
+        {/* Display the size of one complete set. */}
+        {product.setSize && (
+          <p className="product-set-size">
+            <strong>Set size:</strong>{' '}
+            {product.setSize}
+          </p>
+        )}
+
+        {/* Only complete wedding sets have this information. */}
         {product.includes && (
           <div className="product-includes">
             <p>
               <strong>Bride:</strong>{' '}
-              {product.includes.bride.join(', ')}
+              {product.includes.bride.join(
+                ', ',
+              )}
             </p>
 
             <p>
               <strong>Groom:</strong>{' '}
-              {product.includes.groom.join(', ')}
+              {product.includes.groom.join(
+                ', ',
+              )}
             </p>
           </div>
         )}
 
         {/* 
-          Only show the optional extra when the product has an add-on.
+          Only show this section if the product
+          has at least one optional add-on.
         */}
         {product.addOns.length > 0 && (
-          <p className="product-addon">
-            Optional: {product.addOns[0].name} (+
-            {new Intl.NumberFormat('en-NG', {
-              style: 'currency',
-              currency: 'NGN',
-              maximumFractionDigits: 0,
-            }).format(product.addOns[0].price)}
-            )
-          </p>
+          <div className="product-options">
+            {product.addOns.map((addOn) => (
+              <label
+                className="product-option"
+                key={addOn.id}
+              >
+                <input
+                  type="checkbox"
+                  checked={
+                    selectedAddOnId ===
+                    addOn.id
+                  }
+                  onChange={() =>
+                    setSelectedAddOnId(
+                      selectedAddOnId ===
+                        addOn.id
+                        ? null
+                        : addOn.id,
+                    )
+                  }
+                />
+
+                <span>
+                  Add {addOn.name}
+                  {' — +'}
+                  {formatPrice(addOn.price)}
+                </span>
+              </label>
+            ))}
+          </div>
         )}
 
         <div className="product-footer">
-          <p className="product-price">{formattedPrice}</p>
+          {/* This price changes when an add-on is selected. */}
+          <p className="product-price">
+            {formatPrice(finalPrice)}
+          </p>
 
-          {/* We will connect this button to the cart later. */}
-          <button 
-          type="button" 
-          className="add-to-cart-button"
-          onClick={() => onAddToCart(product)}>
-            {isAdded ? 'Added to Cart' : 'Add to Cart'}
+          <button
+            type="button"
+            className={`add-to-cart-button ${
+              isAdded ? 'added' : ''
+            }`}
+            onClick={handleAddProduct}
+          >
+            {isAdded
+              ? 'Added to Cart ✓'
+              : 'Add to Cart'}
           </button>
         </div>
       </div>
