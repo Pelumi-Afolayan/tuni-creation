@@ -733,52 +733,73 @@ footer p {
   flex-shrink: 0;
 }
 
+/* Mobile product layout */
+
 @media (max-width: 800px) {
-  .category-grid {
-    grid-template-columns: 1fr;
+  .shop-preview {
+    width: 100%;
+    overflow-x: hidden;
+    padding: 70px 5%;
   }
-  .category-image-placeholder {
-    height: 200px;
+
+  .products-section {
+    width: 100%;
+    margin-top: 70px;
   }
-}
-.empty-collection {
-  padding: 50px;
-  background: var(--white);
-  text-align: center;
-}
 
-.empty-collection h3 {
-  margin-bottom: 10px;
-  color: var(--primary);
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 1.7rem;
-}
-
-.empty-collection p {
-  color: var(--muted-text);
-}
-
-
-/* Use two columns on tablets and smaller laptops. */
-
-@media (min-width: 801px) and (max-width: 1100px) {
-  .category-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  /* Show only one product per row on mobile. */
   .product-grid {
-  grid-template-columns: 1fr;
-}
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
 
-.product-card {
-  grid-template-columns: 1fr;
-}
+  /* Put the image above the product information. */
+  .product-card {
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
+  }
 
-.product-image-placeholder {
-  min-height: 230px;
-}
+  .product-image-placeholder {
+    width: 100%;
+    min-height: 220px;
+  }
 
-.product-footer {
-  align-items: flex-start;
-  flex-direction: column;
-}
+  .product-content {
+    min-width: 0;
+    padding: 24px 20px;
+  }
+
+  /* Prevent long product names from leaving the card. */
+  .product-content h3 {
+    overflow-wrap: anywhere;
+    font-size: 1.5rem;
+  }
+
+  .product-description {
+    overflow-wrap: anywhere;
+  }
+
+  .product-includes {
+    padding: 14px;
+  }
+
+  .product-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .product-price {
+    font-size: 1.2rem;
+  }
+
+  .add-to-cart-button {
+    width: 100%;
+  }
+
+  /* Categories should also appear one per row. */
+  .category-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
