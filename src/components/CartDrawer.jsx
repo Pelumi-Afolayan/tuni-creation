@@ -1,10 +1,12 @@
+import '../styles/CartDrawer.css'
 function CartDrawer({
   cart,
   isOpen,
   onClose,
   onIncrease,
   onDecrease,
-  onRemove
+  onRemove,
+  onClear,
 }) {
   // If the cart is closed, do not display anything.
   if (!isOpen) {
@@ -77,6 +79,59 @@ function CartDrawer({
 
   // Default wording for complete sets.
   return `Quantity: ${item.quantity}`
+}
+
+
+  function handleWhatsAppOrder() {
+  // Create a readable summary for every product in the cart.
+  const orderItems = cart
+    .map((item, index) => {
+      const itemTotal =
+        item.price * item.quantity
+
+      // Show any optional extras selected for this product.
+      const addOns =
+        item.selectedAddOns?.length > 0
+          ? `\nExtra: ${item.selectedAddOns
+              .map((addOn) => addOn.name)
+              .join(', ')}`
+          : ''
+
+      return `${index + 1}. ${item.name}
+Quantity: ${getQuantityDescription(item)}
+Price: ${formatPrice(item.price)} each${addOns}
+Subtotal: ${formatPrice(itemTotal)}`
+    })
+    .join('\n\n')
+
+  // Create the complete message that will appear on WhatsApp.
+  const message = `Hello Tuni Creation,
+
+I would like to place an order for:
+
+${orderItems}
+
+Total: ${formatPrice(cartTotal)}
+
+Please confirm availability and delivery cost. Thank you.`
+
+  // Tuni Creation's WhatsApp number without spaces or the plus sign.
+  const whatsappNumber = '2348134404858'
+
+  // Convert the message so it can safely be placed inside a web link.
+  const encodedMessage =
+    encodeURIComponent(message)
+
+  // Create the WhatsApp checkout link.
+  const whatsappLink =
+    `https://wa.me/${whatsappNumber}?text=${encodedMessage}`
+
+  // Open WhatsApp in a new browser tab.
+  window.open(
+    whatsappLink,
+    '_blank',
+    'noopener,noreferrer',
+  )
 }
 
   return (
@@ -206,10 +261,28 @@ function CartDrawer({
                 </strong>
               </div>
 
+              <button
+                type="button"
+                className="clear-cart-button"
+                onClick={() => {
+                  // Ask before removing every product.
+                  const shouldClearCart = window.confirm(
+                    'Are you sure you want to clear your cart?',
+                  )
+
+                  if (shouldClearCart) {
+                    onClear()
+                  }
+                }}
+              >
+                Clear Cart
+              </button>
+
               {/* We will connect this to WhatsApp later. */}
               <button
                 type="button"
                 className="checkout-button"
+                onClick={handleWhatsAppOrder}
               >
                 Continue Order
               </button>

@@ -1,3 +1,5 @@
+import '../styles/CategoryCard.css'
+
 function CategoryCard({
   category,
   onViewCategory,

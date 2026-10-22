@@ -1,0 +1,15 @@
+
+footer {
+  padding: 55px 7%;
+  background: var(--green);
+  color: var(--white);
+}
+
+footer h2 {
+  margin-bottom: 10px;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+footer p {
+  color: #c8ddd7;
+}

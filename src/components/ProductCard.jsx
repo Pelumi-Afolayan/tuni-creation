@@ -1,3 +1,4 @@
+import '../styles/ProductCard.css'
 import { useState } from 'react'
 
 function ProductCard({

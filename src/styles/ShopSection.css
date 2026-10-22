@@ -1,0 +1,68 @@
+.shop-preview {
+  padding: 110px 7%;
+  background: #e7eef6;
+}
+
+.shop-preview .section-label {
+  color: var(--blue);
+}
+
+.shop-heading {
+  max-width: 720px;
+  margin-bottom: 55px;
+}
+
+.shop-heading > p:last-child {
+  color: var(--muted-text);
+  line-height: 1.7;
+}
+
+.category-grid {
+  display: grid;
+
+  /* Display three cards per row when enough space is available. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 28px;
+}
+
+.products-section {
+  margin-top: 110px;
+}
+
+.products-heading {
+  max-width: 650px;
+  margin-bottom: 45px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px;
+}
+
+
+
+
+@media (max-width: 800px) {
+  .shop-preview {
+    width: 100%;
+    overflow-x: hidden;
+    padding: 70px 5%;
+  }
+
+  .products-section {
+    width: 100%;
+    margin-top: 70px;
+  }
+
+  .product-grid {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .category-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

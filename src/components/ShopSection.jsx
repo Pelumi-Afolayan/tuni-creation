@@ -3,6 +3,7 @@ import { categories } from '../data/categories'
 import { products } from '../data/products'
 import CategoryCard from './CategoryCard'
 import ProductCard from './ProductCard'
+import '../styles/ShopSection.css'
 
 function ShopSection({
   onAddToCart,

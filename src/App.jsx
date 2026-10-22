@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect,  useState } from "react"
 import CartDrawer from "./components/CartDrawer"
 import Navbar from "./components/Navbar"
 import Hero from "./components/Hero"
@@ -9,11 +9,35 @@ import "./App.css"
 
 function App() {
 
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState(() => {
+    // Check whether the cart is already stored in localStorage.
+    const savedCart = localStorage.getItem("tuni-cart")
+    // if there is no saved cart, return an empty array.
+    if (!savedCart) {
+      return []
+    }
+    try {
+      // Convert the saved text back into a JavaScript array.
+      return JSON.parse(savedCart)
+    }catch {
+      // If the saved Information is damaged,
+      // safely start with an empty cart.
+      return []
+    }
+  })
 
   const [addedProductId, setAddedProductId] = useState(null)
 
   const [isCartOpen, setIsCartOpen] = useState(false)
+
+  useEffect(() => {
+      // Convert the cart into text and save it
+      // inside the customer's browser.
+      localStorage.setItem(
+        "tuni-cart",
+        JSON.stringify(cart),
+      )
+    }, [cart])
 
   const cartItemCount = cart.reduce(
     (total, item) => total + item.quantity,
@@ -52,7 +76,9 @@ function App() {
         ]
       })
       // Remember which product was just added
-      setAddedProductId(product.id)
+      setAddedProductId(
+        product.baseProductId ?? product.id,
+      )
 
       // After 2 seconds, clear the added product ID
       setTimeout(() => {
@@ -102,6 +128,11 @@ function increaseCartQuantity(productId) {
     )
   }
 
+  // Remove every product from the cart.
+  function clearCart() {
+    setCart([])
+  }
+
   return (
     <div className="app">
       <Navbar
@@ -128,6 +159,7 @@ function increaseCartQuantity(productId) {
         onIncrease = {increaseCartQuantity}
         onDecrease = {decreaseCartQuantity}
         onRemove = {removeFromCart}
+        onClear = {clearCart}
       />
     </div>
   )
