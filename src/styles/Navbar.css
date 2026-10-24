@@ -14,8 +14,8 @@
 .brand-logo {
   display: flex;
   align-items: center;
-  width: 130px;
-  height: 80px;
+  width: 150px;
+  height: 92px;
   background: transparent;
 }
 
@@ -29,14 +29,15 @@
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 42px;
 }
 
 .nav-links a {
   position: relative;
-  color: var(--white);
-  font-size: 0.95rem;
-  font-weight: 600;
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -47,17 +48,19 @@
   right: 0;
   bottom: -8px;
   left: 0;
-  height: 2px;
-  background: var(--yellow);
+  height: 1px;
+  background: var(--green);
+  transform-origin: left center;
   transform: scaleX(0);
   transition: transform 0.2s ease;
 }
 
 .nav-links a:hover {
-  color: var(--yellow);
+  color: var(--green);
 }
 
-.nav-links a:hover::after {
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after {
   transform: scaleX(1);
 }
 
@@ -69,8 +72,9 @@
   border-radius: 999px;
   background: var(--yellow);
   color: var(--primary);
-  padding: 10px 17px;
-  font-weight: 800;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
   transition:
     background 0.2s ease,
@@ -79,15 +83,15 @@
 
 .cart-button:hover {
   background: transparent;
-  color: var(--yellow);
+  color: var(--primary);
 }
 
 .cart-button span {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: var(--primary);
   color: var(--white);
@@ -155,4 +159,16 @@
   transform: scale(1.55);
   transform-origin: left center;
 }
+}
+
+.nav-links a:focus-visible,
+.cart-button:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-links a,
+  .nav-links a::after,
+  .cart-button { transition: none; }
 }

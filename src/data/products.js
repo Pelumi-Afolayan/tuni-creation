@@ -105,10 +105,10 @@ export const products = [
     category: 'adire',
     collection: 'adire-set',
     price: 35250,
-    image: '',
+    image: '/images/adire-brocade.jpg',
     description:
       'A Brocade Adire set sold as one complete fabric package.',
-    setSize: '4 yards, 20 inches',
+    setSize: '4 yards + 20 inches',
     unit: 'set',
     addOns: [],
   },
@@ -119,7 +119,7 @@ export const products = [
     category: 'adire',
     collection: 'adire-set',
     price: 30000,
-    image: '',
+    image: '/images/adire-denim.jpg',
     description:
       'A Denim Adire set sold in a fixed five-yard package.',
     setSize: '5 yards',
@@ -161,7 +161,7 @@ export const products = [
     category: 'adire',
     collection: 'adire-set',
     price: 45000,
-    image: '',
+    image: '/images/adire-linen.jpg',
     description:
       'A Linen Adire set sold in a fixed five-yard package.',
     setSize: '5 yards',
@@ -261,7 +261,7 @@ export const products = [
     category: 'adire',
     collection: 'ready-made',
     price: 20000,
-    image: '',
+    image: '/images/adire-tshirt.jpg',
     description:
       'A ready-made T-shirt featuring an Adire design.',
     setSize: '1 piece',
@@ -275,7 +275,7 @@ export const products = [
     category: 'adire',
     collection: 'accessory',
     price: 15000,
-    image: '',
+    image: '/images/adire-scarf.jpg',
     description:
       'A versatile scarf featuring an Adire design.',
     setSize: '1 piece',

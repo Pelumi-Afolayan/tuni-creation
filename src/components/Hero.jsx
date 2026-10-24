@@ -29,20 +29,17 @@ function Hero() {
         </a>
       </div>
 
-      {/* Decorative design displayed beside the text. */}
-      <div className="hero-art">
-        <div className="pattern-circle"></div>
-
-        <div className="hero-card">
-          <p>Authentically African</p>
-
-          <h2>Made with intention</h2>
-
-          <span>
-            Aso Oke • Adire • More
-          </span>
+      <figure className="hero-art">
+        <div className="hero-photo-frame">
+          <img
+            className="hero-photo"
+            src="/images/tuni-hero-cutout.png"
+            alt="Model wearing a black dress decorated with colourful African fabric strips"
+            fetchPriority="high"
+          />
         </div>
-      </div>
+        <figcaption>Aso Oke · Adire · African-inspired pieces</figcaption>
+      </figure>
     </section>
   )
 }

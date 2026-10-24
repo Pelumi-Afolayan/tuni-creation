@@ -62,7 +62,14 @@ function ProductCard({
     <article className="product-card">
       {/* Temporary image until real product photos are added. */}
       <div className="product-image-placeholder">
-        <span>{product.name.charAt(0)}</span>
+        {product.image ? (
+          <img
+            src={product.image}
+            alt={product.name}
+          />
+        ) : (
+          <span>{product.name.charAt(0)}</span>
+        )}
       </div>
 
       <div className="product-content">
