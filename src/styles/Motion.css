@@ -1,0 +1,58 @@
+/* Content is visible by default. JavaScript only arms elements it observes. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-pending { opacity: 0; }
+  .reveal-enter {
+    animation: section-enter 650ms cubic-bezier(.2,.65,.3,1) var(--reveal-delay, 0ms) backwards;
+  }
+  .about-photo-detail { --reveal-delay: 160ms; }
+  .about-photos figcaption { --reveal-delay: 240ms; }
+  .intro-text > p:first-child { --reveal-delay: 100ms; }
+  .intro-text > p:nth-child(2) { --reveal-delay: 200ms; }
+  .brand-value:nth-child(2), .category-card:nth-child(3n + 2),
+  .product-card:nth-child(3n + 2), .footer-links { --reveal-delay: 90ms; }
+  .brand-value:nth-child(3), .category-card:nth-child(3n),
+  .product-card:nth-child(3n), .footer-contact { --reveal-delay: 180ms; }
+
+  .navbar { animation: nav-enter 500ms ease-out backwards; }
+  .cart-overlay { animation: overlay-enter 200ms ease-out; }
+  .cart-drawer { animation: drawer-enter 320ms cubic-bezier(.2,.65,.3,1); }
+  .add-to-cart-button.added { animation: added-feedback 300ms ease-out; }
+
+  .add-to-cart-button, .checkout-button, .clear-cart-button,
+  .quantity-controls button, .close-cart-button {
+    transition: background-color 180ms ease, color 180ms ease, scale 180ms ease;
+  }
+  .add-to-cart-button:active, .checkout-button:active,
+  .cart-button:active, .shop-button:active { scale: .97; }
+  .footer-shop span, .footer-whatsapp span, .footer-social > span:last-child,
+  .footer-bottom a span { display: inline-block; transition: translate 200ms ease; }
+
+  @media (hover: hover) and (pointer: fine) {
+    .about-photo-main img, .about-photo-detail img { transition: transform 600ms ease; }
+    .about-photo-main:hover img, .about-photo-detail:hover img { transform: scale(1.035); }
+    .footer-shop:hover span, .footer-whatsapp:hover span,
+    .footer-social:hover > span:last-child { translate: 2px -2px; }
+    .footer-bottom a:hover span { translate: 0 -3px; }
+  }
+}
+
+/* Translate is separate from transform so card hover effects still work. */
+@keyframes section-enter {
+  from { opacity: 0; translate: 0 22px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes nav-enter {
+  from { opacity: 0; translate: 0 -10px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes overlay-enter { from { opacity: 0; } to { opacity: 1; } }
+@keyframes drawer-enter { from { translate: 100% 0; } to { translate: 0 0; } }
+@keyframes added-feedback { 50% { scale: 1.04; } }
+
+@media (max-width: 800px) {
+  .category-card, .product-card, .brand-value { --reveal-delay: 0ms !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal-pending { opacity: 1; }
+}

@@ -11,7 +11,7 @@ html {
 body {
   min-width: 320px;
   min-height: 100vh;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Outfit', Arial, sans-serif;
   background: #f7f1e5;
 }
 
@@ -31,3 +31,4 @@ textarea {
   font-weight: 700;
   letter-spacing: 3px;
 }
+

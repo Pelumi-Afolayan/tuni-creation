@@ -36,7 +36,7 @@
 
 .cart-header h2 {
   color: var(--primary);
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: inherit;
   font-size: 2rem;
 }
 
@@ -220,3 +220,4 @@
   background: #be0b00;
   color: white;
 }
+

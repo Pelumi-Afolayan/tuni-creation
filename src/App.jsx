@@ -1,4 +1,6 @@
-import { useEffect,  useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import useScrollReveal from "./hooks/useScrollReveal"
+import "./styles/Motion.css"
 import CartDrawer from "./components/CartDrawer"
 import Navbar from "./components/Navbar"
 import Hero from "./components/Hero"
@@ -8,6 +10,8 @@ import ShopSection from "./components/ShopSection"
 import "./App.css"
 
 function App() {
+  const pageRef = useRef(null)
+  useScrollReveal(pageRef)
 
   const [cart, setCart] = useState(() => {
     // Check whether the cart is already stored in localStorage.
@@ -134,7 +138,7 @@ function increaseCartQuantity(productId) {
   }
 
   return (
-    <div className="app">
+    <div className="app" ref={pageRef}>
       <Navbar
         cartItemCount={cartItemCount}
         onOpenCart={() => setIsCartOpen(true)}

@@ -6,6 +6,15 @@ function AboutSection() {
       className="introduction"
       id="about"
     >
+      <div className="about-story">
+        <figure className="about-photos">
+          <div className="about-photo-pair">
+            <div className="about-photo-main"><img src="/images/tuni-craft-process.jpg" alt="Working by hand on patterned fabric spread across the floor" width="940" height="1280" loading="lazy" decoding="async" /></div>
+            <div className="about-photo-detail"><img src="/images/tuni-craft-detail.jpg" alt="A close-up of hands carefully working on a dyed fabric" width="723" height="1280" loading="lazy" decoding="async" /></div>
+          </div>
+          <figcaption>Behind the pieces, a hands-on process.</figcaption>
+        </figure>
+        <div className="about-copy">
       <div className="about-heading">
         <p className="section-label about-label">
           OUR STORY
@@ -30,6 +39,9 @@ function AboutSection() {
           traditional craftsmanship with
           modern design and aesthetics.
         </p>
+      </div>
+
+        </div>
       </div>
 
       {/* Short points that explain what the brand represents. */}
@@ -70,3 +82,4 @@ function AboutSection() {
 }
 
 export default AboutSection
+
